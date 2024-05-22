@@ -98,10 +98,10 @@ function between(tokens: Token[], current: number) {
 		}
 		if (next === "%") return " ";
 		if (prev === "%") return " ";
-		if (next === "=") return "";
-		if (prev === "=") return "";
-		if (next === ":=") return "";
-		if (prev === ":=") return "";
+		if (next === "=") return " ";
+		if (prev === "=") return " ";
+		if (next === ":=") return " ";
+		if (prev === ":=") return " ";
 		if (prevToken?.type === "symbol") return " ";
 		if (nextToken.type === "symbol") return " ";
 	}
