@@ -92,16 +92,23 @@ function between(tokens: Token[], current: number) {
 	if (next === "#") return " ";
 	if (prevToken.skip && nextToken.skip) return "";
 
+	if (next === "=") {
+		if (prev === ":") {
+    		return "";
+  		}
+   		return " ";
+ 	}
+	if (prev === "=") return " ";
+
 	if (nextToken.param) {
 		if (prev === "-" && tokens[current - 2]?.value === ",") {
 			return "";
 		}
 		if (next === "%") return " ";
 		if (prev === "%") return " ";
-		if (next === "=") return " ";
-		if (prev === "=") return " ";
-		if (next === ":=") return " ";
-		if (prev === ":=") return " ";
+
+		if (next === ":=") return "";
+		if (prev === ":=") return "";
 		if (prevToken?.type === "symbol") return " ";
 		if (nextToken.type === "symbol") return " ";
 	}
@@ -109,9 +116,10 @@ function between(tokens: Token[], current: number) {
 	if (next === ":") {
 		if (["var", "const"].includes(tokens[current - 2]?.value)) {
 			if (tokens[current + 1]?.value !== "=") return "";
-			if (tokens[current + 1]?.value !== "=") return "";
+			// if (tokens[current + 1]?.value !== "=") return "";
 			return " ";
 		}
+		if (tokens[current + 1]?.value === "=") return " ";
 		if (prevToken?.type === "keyword") return "";
 	}
 	if (prev === "@") return "";
@@ -151,6 +159,7 @@ function between(tokens: Token[], current: number) {
 	if (nextToken.type === "symbol") return " ";
 
 	if (prev === ",") return " ";
+	if (prev === "],") return " ";
 
 	return "";
 }
